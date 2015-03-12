@@ -1,15 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">IFOA sapere utile</string>
 
+    <string name="app_name">IFOA sapere utile</string>
     <string name="home_section">Home</string>
     <string name="chi_siamo_section">Chi Siamo</string>
     <string name="sedi_section">Le Sedi</string>
-
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-
     <string name="title_activity_informatica">InformaticaActivity</string>
-
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_login">LoginActivity</string>
+    <string name="title_activity_elearning">ELearning</string>
+    <string name="action_settings">Settings</string>
+
 </resources>

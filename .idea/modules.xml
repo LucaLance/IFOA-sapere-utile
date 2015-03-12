@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/IFOA-sapere-utile.iml" filepath="$PROJECT_DIR$/IFOA-sapere-utile.iml" />
       <module fileurl="file://$PROJECT_DIR$/IFOAsapereutile.iml" filepath="$PROJECT_DIR$/IFOAsapereutile.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>

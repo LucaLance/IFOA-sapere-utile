@@ -24,6 +24,10 @@
             android:name=".LoginActivity"
             android:label="@string/title_activity_login" >
         </activity>
+        <activity
+            android:name=".ELearning"
+            android:label="@string/title_activity_elearning" >
+        </activity>
     </application>
 
 </manifest>
