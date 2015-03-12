@@ -1,5 +1,6 @@
 package gruppo3.ifoasapereutile;
 
+import android.app.DialogFragment;
 import android.support.v7.app.ActionBarActivity;
 import android.app.Activity;
 import android.support.v7.app.ActionBar;
@@ -259,10 +260,11 @@ public class NavigationDrawerFragment extends Fragment {
             return true;
         }
 
-/*        if (item.getItemId() == R.id.action_example) {
-            Toast.makeText(getActivity(), "Example action.", Toast.LENGTH_SHORT).show();
+        if (item.getItemId() == R.id.action_login) {
+            DialogFragment loginDialogFragment = new LoginDialogFragment();
+            loginDialogFragment.show(getActivity().getFragmentManager(), "login");
             return true;
-        }*/
+        }
 
         return super.onOptionsItemSelected(item);
     }

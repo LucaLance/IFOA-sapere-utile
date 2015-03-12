@@ -3,6 +3,7 @@ package gruppo3.ifoasapereutile;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
@@ -183,8 +184,8 @@ public class MainActivity extends ActionBarActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_login) {
-            Intent i = new Intent(MainActivity.this, LoginActivity.class);
-            startActivity(i);
+            DialogFragment loginDialogFragment = new LoginDialogFragment();
+            loginDialogFragment.show(getFragmentManager(), "login");
             return true;
         }
 
