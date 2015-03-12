@@ -9,6 +9,7 @@
     <FrameLayout android:id="@+id/container" android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <!-- Layout Sezione Home -->
         <RelativeLayout
             android:visibility="visible"
             android:id="@+id/contentHome"
@@ -34,8 +35,18 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
+            <Button
+                android:id="@+id/btnIfoa"
+                android:layout_centerHorizontal="true"
+                android:layout_above="@+id/txtHome"
+                android:textSize="20sp"
+                android:text="Cos'è IFOA"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
         </RelativeLayout>
 
+        <!-- Layout Sezione Chi Siamo -->
         <RelativeLayout
             android:visibility="gone"
             android:id="@+id/contentChiSiamo"
@@ -53,6 +64,7 @@
 
         </RelativeLayout>
 
+        <!-- Layout Sezione Sedi -->
         <RelativeLayout
             android:visibility="gone"
             android:id="@+id/contentSedi"

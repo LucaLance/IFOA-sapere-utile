@@ -1,20 +1,27 @@
 package gruppo3.ifoasapereutile;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.support.v4.widget.DrawerLayout;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 
 
 public class MainActivity extends ActionBarActivity
@@ -30,9 +37,9 @@ public class MainActivity extends ActionBarActivity
      */
     private CharSequence mTitle;
 
-    RelativeLayout contentHome, contentSection2, contentSection3;
+    RelativeLayout contentHome, contentChiSiamo, contentSedi;
 
-    Button btnInformatica;
+    Button btnInformatica, btnIfoa;
 
     static final int CODE_HOME = 1;  // The request code HOME
     static final int CODE_SECTION2 = 2;  // The request code SECTION 2
@@ -43,10 +50,31 @@ public class MainActivity extends ActionBarActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        contentHome = (RelativeLayout) findViewById(R.id.contentHome);
-        contentSection2 = (RelativeLayout) findViewById(R.id.contentChiSiamo);
-        contentSection3 = (RelativeLayout) findViewById(R.id.contentSedi);
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        LayoutInflater inflater = this.getLayoutInflater();
+        View dialogView = inflater.inflate(R.layout.alert_dialog_ifoa, null);
+        TextView editText = (TextView) dialogView.findViewById(R.id.txtDialogIfoa);
+// Set other dialog properties
+        final String dialogText = "Da quarant’anni IFOA si occupa di formazione. Trasmettere e accrescere le competenze professionali è la missione perseguita, con l’obiettivo di arricchire le persone nel loro sviluppo, di rafforzare il capitale umano e la competitività delle imprese e del sistema economico.\n" +
+                "\n" +
+                "IFOA opera in tante regioni in Italia ed anche su scala globale.\n" +
+                "\n" +
+                "Sviluppa attività di formazione in molteplici ambiti specialistici, servizi di inserimento al lavoro, servizi di assistenza tecnica e consulenza.\n" +
+                "\n" +
+                "IFOA è centro di formazione e servizi delle Camere di Commercio.\n" +
+                "“Sapere utile” è il motto adottato per contrassegnarne le attività: portare beneficio all’utente e al cliente e renderne conto.\n" +
+                "\n" +
+                "Ti aspettiamo!";
+    //    builder.setView(dialogView);
+        editText.setText(dialogText);
+// Create the AlertDialog
+        final AlertDialog dialogIfoa = builder.create();
 
+        contentHome = (RelativeLayout) findViewById(R.id.contentHome);
+        contentChiSiamo = (RelativeLayout) findViewById(R.id.contentChiSiamo);
+        contentSedi = (RelativeLayout) findViewById(R.id.contentSedi);
+
+        btnIfoa = (Button) findViewById(R.id.btnIfoa);
         btnInformatica = (Button) findViewById(R.id.btnInformatica);
 
         mNavigationDrawerFragment = (NavigationDrawerFragment)
@@ -65,6 +93,15 @@ public class MainActivity extends ActionBarActivity
                 startActivity(i);
             }
         });
+
+        btnIfoa.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialogIfoa.show();
+            }
+        });
+
+
 
         Intent returnIntent = getIntent();
         int section = returnIntent.getIntExtra("codice", 0);
@@ -92,20 +129,20 @@ public class MainActivity extends ActionBarActivity
             case 1:
                 mTitle = getString(R.string.home_section);
                 contentHome.setVisibility(View.VISIBLE);
-                contentSection2.setVisibility(View.GONE);
-                contentSection3.setVisibility(View.GONE);
+                contentChiSiamo.setVisibility(View.GONE);
+                contentSedi.setVisibility(View.GONE);
                 break;
             case 2:
                 mTitle = getString(R.string.chi_siamo_section);
                 contentHome.setVisibility(View.GONE);
-                contentSection2.setVisibility(View.VISIBLE);
-                contentSection3.setVisibility(View.GONE);
+                contentChiSiamo.setVisibility(View.VISIBLE);
+                contentSedi.setVisibility(View.GONE);
                 break;
             case 3:
                 mTitle = getString(R.string.sedi_section);
                 contentHome.setVisibility(View.GONE);
-                contentSection2.setVisibility(View.GONE);
-                contentSection3.setVisibility(View.VISIBLE);
+                contentChiSiamo.setVisibility(View.GONE);
+                contentSedi.setVisibility(View.VISIBLE);
                 break;
         }
     }
