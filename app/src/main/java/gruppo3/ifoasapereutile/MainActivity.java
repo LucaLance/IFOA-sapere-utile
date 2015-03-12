@@ -53,7 +53,7 @@ public class MainActivity extends ActionBarActivity
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);
         LayoutInflater inflater = this.getLayoutInflater();
         View dialogView = inflater.inflate(R.layout.alert_dialog_ifoa, null);
-        TextView editText = (TextView) dialogView.findViewById(R.id.txtDialogIfoa);
+        TextView txtDialogIfoa = (TextView) dialogView.findViewById(R.id.txtDialogIfoa);
 // Set other dialog properties
         final String dialogText = "Da quarant’anni IFOA si occupa di formazione. Trasmettere e accrescere le competenze professionali è la missione perseguita, con l’obiettivo di arricchire le persone nel loro sviluppo, di rafforzare il capitale umano e la competitività delle imprese e del sistema economico.\n" +
                 "\n" +
@@ -65,8 +65,8 @@ public class MainActivity extends ActionBarActivity
                 "“Sapere utile” è il motto adottato per contrassegnarne le attività: portare beneficio all’utente e al cliente e renderne conto.\n" +
                 "\n" +
                 "Ti aspettiamo!";
-    //    builder.setView(dialogView);
-        editText.setText(dialogText);
+        builder.setView(dialogView);
+        txtDialogIfoa.setText(dialogText);
 // Create the AlertDialog
         final AlertDialog dialogIfoa = builder.create();
 
@@ -98,10 +98,16 @@ public class MainActivity extends ActionBarActivity
             @Override
             public void onClick(View v) {
                 dialogIfoa.show();
+                dialogIfoa.getWindow().setLayout(725, 900);
             }
         });
 
-
+        txtDialogIfoa.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialogIfoa.cancel();
+            }
+        });
 
         Intent returnIntent = getIntent();
         int section = returnIntent.getIntExtra("codice", 0);

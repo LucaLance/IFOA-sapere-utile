@@ -16,6 +16,17 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+            <Button
+                android:layout_marginTop="30dp"
+                android:layout_alignParentTop="true"
+                android:id="@+id/btnIfoa"
+                android:layout_centerHorizontal="true"
+                android:textSize="20sp"
+                android:text="Cos'è IFOA"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+
             <TextView
                 android:id="@+id/txtHome"
                 android:textColor="#000000"
@@ -32,15 +43,6 @@
                 android:layout_below="@+id/txtHome"
                 android:textSize="20sp"
                 android:text="Informatica"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-            <Button
-                android:id="@+id/btnIfoa"
-                android:layout_centerHorizontal="true"
-                android:layout_above="@+id/txtHome"
-                android:textSize="20sp"
-                android:text="Cos'è IFOA"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
