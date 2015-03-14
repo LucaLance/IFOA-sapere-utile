@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +24,8 @@ import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.parse.ParseUser;
 
 
 public class MainActivity extends ActionBarActivity
@@ -161,6 +164,22 @@ public class MainActivity extends ActionBarActivity
         actionBar.setTitle(mTitle);
     }
 
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        MenuItem itemLogin = menu.findItem(R.id.action_login);
+        MenuItem itemLogout = menu.findItem(R.id.action_logout);
+
+        ParseUser user = ParseUser.getCurrentUser();
+
+        if(user==null){
+            itemLogin.setVisible(true);
+            itemLogout.setVisible(false);
+        }else{
+            itemLogin.setVisible(false);
+            itemLogout.setVisible(true);
+        }
+        return super.onPrepareOptionsMenu(menu);
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -186,6 +205,12 @@ public class MainActivity extends ActionBarActivity
         if (id == R.id.action_login) {
             DialogFragment loginDialogFragment = new LoginDialogFragment();
             loginDialogFragment.show(getFragmentManager(), "login");
+            return true;
+        }
+
+        if (item.getItemId() == R.id.action_logout){
+            DialogFragment logoutDialogFragment = new LogoutDialogFragment();
+            logoutDialogFragment.show(getFragmentManager(), "logout");
             return true;
         }
 

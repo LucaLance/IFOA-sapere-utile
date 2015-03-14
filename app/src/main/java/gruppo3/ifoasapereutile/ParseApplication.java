@@ -1,4 +1,4 @@
-package gruppo3.ifoasapereutile.parse;
+package gruppo3.ifoasapereutile;
 
 import android.app.Application;
 
