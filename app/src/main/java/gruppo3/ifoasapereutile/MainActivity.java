@@ -20,6 +20,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.support.v4.widget.DrawerLayout;
 import android.view.WindowManager;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -44,10 +45,6 @@ public class MainActivity extends ActionBarActivity
     RelativeLayout contentHome, contentChiSiamo, contentSedi;
 
     Button btnInformatica, btnIfoa;
-
-    static final int CODE_HOME = 1;  // The request code HOME
-    static final int CODE_SECTION2 = 2;  // The request code SECTION 2
-    static final int CODE_SECTION3 = 3;  // The request code SECTION 3
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -242,13 +239,6 @@ public class MainActivity extends ActionBarActivity
         public PlaceholderFragment() {
         }
 
-   /*     @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                                 Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_main, container, false);
-            return rootView;
-        }*/
-
         @Override
         public void onAttach(Activity activity) {
             super.onAttach(activity);
@@ -256,5 +246,4 @@ public class MainActivity extends ActionBarActivity
                     getArguments().getInt(ARG_SECTION_NUMBER));
         }
     }
-
 }

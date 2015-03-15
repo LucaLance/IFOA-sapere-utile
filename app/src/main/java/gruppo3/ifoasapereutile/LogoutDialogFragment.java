@@ -1,6 +1,7 @@
 package gruppo3.ifoasapereutile;
 
 import android.annotation.TargetApi;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
@@ -23,6 +24,7 @@ public class LogoutDialogFragment extends DialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         // Use the Builder class for convenient dialog construction
+        final Activity activity = getActivity();
         final Toast toast = Toast.makeText(getActivity(), "", Toast.LENGTH_LONG);
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle("Logout");
@@ -33,6 +35,7 @@ public class LogoutDialogFragment extends DialogFragment {
                         ParseUser.logOut();
                         toast.setText("Utente sloggato");
                         toast.show();
+                        activity.invalidateOptionsMenu();
                     }
                 })
                 .setNegativeButton("Annulla", new DialogInterface.OnClickListener() {
