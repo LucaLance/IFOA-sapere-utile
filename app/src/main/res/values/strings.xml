@@ -5,6 +5,7 @@
     <string name="home_section">Home</string>
     <string name="chi_siamo_section">Chi Siamo</string>
     <string name="sedi_section">Le Sedi</string>
+    <string name="profilo_section">il mio Profilo</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="title_activity_informatica">InformaticaActivity</string>
@@ -12,6 +13,8 @@
     <string name="title_activity_login">LoginActivity</string>
     <string name="title_activity_elearning">ELearning</string>
     <string name="action_settings">Settings</string>
-    <string name="title_activity_user">UserActivity</string>
+    <string name="title_activity_refresh_navigation_drawer">RefreshNavigationDrawerActivity</string>
+    <string name="title_activity_miei_corsi">MieiCorsiActivity</string>
+    <string name="title_activity_dettaglio_corsi">DettaglioCorsiActivity</string>
 
 </resources>

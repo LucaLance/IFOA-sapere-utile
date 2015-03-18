@@ -1,6 +1,8 @@
 package gruppo3.ifoasapereutile;
 
 import android.app.DialogFragment;
+import android.content.Intent;
+import android.graphics.Color;
 import android.support.v7.app.ActionBarActivity;
 import android.app.Activity;
 import android.support.v7.app.ActionBar;
@@ -12,16 +14,19 @@ import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -66,16 +71,28 @@ public class NavigationDrawerFragment extends Fragment {
     private boolean mFromSavedInstanceState;
     private boolean mUserLearnedDrawer;
 
-    public NavigationDrawerFragment() {
+    private ParseUser user = ParseUser.getCurrentUser();
+
+    public String getmTitle() {
+        return mTitle;
     }
 
-    public ListView getmDrawerListView() {
-        return mDrawerListView;
+    public void setmTitle(String mTitle) {
+        this.mTitle = mTitle;
+    }
+
+    private String mTitle = "";
+
+    private Activity activity;
+
+    public NavigationDrawerFragment() {
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        activity = getActivity();
 
         // Read in the flag indicating whether or not the user has demonstrated awareness of the
         // drawer. See PREF_USER_LEARNED_DRAWER for details.
@@ -118,9 +135,9 @@ public class NavigationDrawerFragment extends Fragment {
         });
 
         String[] elenco = new String[] {
-                    getString(R.string.home_section),
-                    getString(R.string.chi_siamo_section),
-                    getString(R.string.sedi_section),
+                getString(R.string.home_section),
+                getString(R.string.chi_siamo_section),
+                getString(R.string.sedi_section),
         };
 
 
@@ -130,6 +147,50 @@ public class NavigationDrawerFragment extends Fragment {
                 android.R.id.text1,
                 elenco
         ));
+
+        if (user != null) {
+            final ViewGroup header = (ViewGroup) inflater.inflate(R.layout.user_navigation_drawer, mDrawerListView, false);
+            TextView txtUserEmail = (TextView) header.findViewById(R.id.txtUserEmail);
+            txtUserEmail.setText(user.getEmail());
+            header.setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View v, MotionEvent event) {
+                    switch (event.getAction()) {
+                        case MotionEvent.ACTION_DOWN: {
+                            header.setBackgroundColor(Color.GREEN);
+                            break;
+                        }
+                        case MotionEvent.ACTION_UP: {
+                            header.setBackgroundColor(Color.parseColor("#cccccc"));
+                            if (activity.getClass() == MainActivity.class) {
+                                RelativeLayout contentHome = (RelativeLayout) getActivity().findViewById(R.id.contentHome);
+                                RelativeLayout contentChiSiamo = (RelativeLayout) getActivity().findViewById(R.id.contentChiSiamo);
+                                RelativeLayout contentSedi = (RelativeLayout) getActivity().findViewById(R.id.contentSedi);
+                                RelativeLayout contentProfilo = (RelativeLayout) getActivity().findViewById(R.id.contentProfilo);
+                                contentHome.setVisibility(View.GONE);
+                                contentChiSiamo.setVisibility(View.GONE);
+                                contentSedi.setVisibility(View.GONE);
+                                contentProfilo.setVisibility(View.VISIBLE);
+                                mDrawerLayout.closeDrawer(mFragmentContainerView);
+                                mTitle = "Il mio profilo";
+                            }else{
+                                Intent i = new Intent(activity, MainActivity.class);
+                                i.putExtra("codice", 0);
+                                startActivity(i);
+                            }
+                            break;
+                        }
+                        case MotionEvent.ACTION_CANCEL: {
+                            header.setBackgroundColor(Color.parseColor("#cccccc"));
+                            break;
+                        }
+                    }
+                    return true;
+                }
+            });
+            mDrawerListView.addHeaderView(header, null, false);
+        }
+
         mDrawerListView.setItemChecked(mCurrentSelectedPosition, true);
 
         return mDrawerListView;
@@ -287,8 +348,8 @@ public class NavigationDrawerFragment extends Fragment {
         }
 
         if (item.getItemId() == R.id.action_login) {
-            DialogFragment loginDialogFragment = new LoginDialogFragment();
-            loginDialogFragment.show(getActivity().getFragmentManager(), "login");
+            Intent i = new Intent(getActivity(), LoginActivity.class);
+            startActivity(i);
             return true;
         }
 

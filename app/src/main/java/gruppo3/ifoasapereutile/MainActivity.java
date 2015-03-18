@@ -42,9 +42,13 @@ public class MainActivity extends ActionBarActivity
      */
     private CharSequence mTitle;
 
-    RelativeLayout contentHome, contentChiSiamo, contentSedi;
+    RelativeLayout contentHome, contentChiSiamo, contentSedi, contentProfilo;
 
-    Button btnInformatica, btnIfoa;
+    TextView txtUserName;
+
+    Button btnInformatica, btnIfoa, btnCorsi;
+
+    ParseUser user =ParseUser.getCurrentUser();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,9 +78,13 @@ public class MainActivity extends ActionBarActivity
         contentHome = (RelativeLayout) findViewById(R.id.contentHome);
         contentChiSiamo = (RelativeLayout) findViewById(R.id.contentChiSiamo);
         contentSedi = (RelativeLayout) findViewById(R.id.contentSedi);
+        contentProfilo = (RelativeLayout) findViewById(R.id.contentProfilo);
+
+        txtUserName = (TextView) findViewById(R.id.txtUserName);
 
         btnIfoa = (Button) findViewById(R.id.btnIfoa);
         btnInformatica = (Button) findViewById(R.id.btnInformatica);
+        btnCorsi = (Button) findViewById(R.id.btnCorsi);
 
         mNavigationDrawerFragment = (NavigationDrawerFragment)
                 getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
@@ -103,6 +111,14 @@ public class MainActivity extends ActionBarActivity
             }
         });
 
+        btnCorsi.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(MainActivity.this, MieiCorsiActivity.class);
+                startActivity(i);
+            }
+        });
+
         txtDialogIfoa.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -110,12 +126,28 @@ public class MainActivity extends ActionBarActivity
             }
         });
 
+        if (user != null){
+            txtUserName.setText("Ciao, " + user.get("firstName").toString());
+            contentHome.setVisibility(View.GONE);
+            contentChiSiamo.setVisibility(View.GONE);
+            contentSedi.setVisibility(View.GONE);
+            contentProfilo.setVisibility(View.VISIBLE);
+            mTitle = "Il mio profilo";
+        }
+
         Intent returnIntent = getIntent();
-        int section = returnIntent.getIntExtra("codice", 0);
+        int section = returnIntent.getIntExtra("codice", -1);
+        if (section == 0){
+            contentHome.setVisibility(View.GONE);
+            contentChiSiamo.setVisibility(View.GONE);
+            contentSedi.setVisibility(View.GONE);
+            contentProfilo.setVisibility(View.VISIBLE);
+            mTitle = "Il mio profilo";
+        }
         if (section != 0) {
             FragmentManager fragmentManager = getSupportFragmentManager();
             fragmentManager.beginTransaction()
-                    .replace(R.id.container, PlaceholderFragment.newInstance(section))
+                    .replace(R.id.container, PlaceholderFragment.newInstance(section-1))
                     .commit();
         }
 
@@ -125,9 +157,12 @@ public class MainActivity extends ActionBarActivity
     @Override
     public void onNavigationDrawerItemSelected(int position) {
         // update the main content by replacing fragments
+        if (user == null){
+            position ++;
+        }
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction()
-                .replace(R.id.container, PlaceholderFragment.newInstance(position + 1))
+                .replace(R.id.container, PlaceholderFragment.newInstance(position))
                 .commit();
     }
 
@@ -138,18 +173,21 @@ public class MainActivity extends ActionBarActivity
                 contentHome.setVisibility(View.VISIBLE);
                 contentChiSiamo.setVisibility(View.GONE);
                 contentSedi.setVisibility(View.GONE);
+                contentProfilo.setVisibility(View.GONE);
                 break;
             case 2:
                 mTitle = getString(R.string.chi_siamo_section);
                 contentHome.setVisibility(View.GONE);
                 contentChiSiamo.setVisibility(View.VISIBLE);
                 contentSedi.setVisibility(View.GONE);
+                contentProfilo.setVisibility(View.GONE);
                 break;
             case 3:
                 mTitle = getString(R.string.sedi_section);
                 contentHome.setVisibility(View.GONE);
                 contentChiSiamo.setVisibility(View.GONE);
                 contentSedi.setVisibility(View.VISIBLE);
+                contentProfilo.setVisibility(View.GONE);
                 break;
         }
     }
@@ -158,7 +196,12 @@ public class MainActivity extends ActionBarActivity
         ActionBar actionBar = getSupportActionBar();
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
         actionBar.setDisplayShowTitleEnabled(true);
-        actionBar.setTitle(mTitle);
+        if (mNavigationDrawerFragment.getmTitle() != ""){
+            actionBar.setTitle(mNavigationDrawerFragment.getmTitle());
+            mNavigationDrawerFragment.setmTitle("");
+        }else{
+            actionBar.setTitle(mTitle);
+        }
     }
 
     @Override
@@ -200,8 +243,8 @@ public class MainActivity extends ActionBarActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_login) {
-            DialogFragment loginDialogFragment = new LoginDialogFragment();
-            loginDialogFragment.show(getFragmentManager(), "login");
+            Intent i = new Intent(this, LoginActivity.class);
+            startActivity(i);
             return true;
         }
 

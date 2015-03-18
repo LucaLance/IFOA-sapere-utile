@@ -9,6 +9,34 @@
     <FrameLayout android:id="@+id/container" android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <!-- Layout Sezione Profilo -->
+        <RelativeLayout
+            android:visibility="gone"
+            android:id="@+id/contentProfilo"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/txtUserName"
+                android:textColor="#000000"
+                android:textSize="50sp"
+                android:layout_centerHorizontal="true"
+                android:text="Ciao, "
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <Button
+                android:id="@+id/btnCorsi"
+                android:textSize="20sp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="30dp"
+                android:layout_below="@+id/txtUserName"
+                android:text="I miei Corsi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </RelativeLayout>
+
         <!-- Layout Sezione Home -->
         <RelativeLayout
             android:visibility="visible"

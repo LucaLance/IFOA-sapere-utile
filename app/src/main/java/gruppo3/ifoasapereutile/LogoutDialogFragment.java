@@ -6,6 +6,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -36,6 +37,8 @@ public class LogoutDialogFragment extends DialogFragment {
                         toast.setText("Utente sloggato");
                         toast.show();
                         activity.invalidateOptionsMenu();
+                        Intent i = new Intent(activity, RefreshNavigationDrawerActivity.class);
+                        startActivity(i);
                     }
                 })
                 .setNegativeButton("Annulla", new DialogInterface.OnClickListener() {
