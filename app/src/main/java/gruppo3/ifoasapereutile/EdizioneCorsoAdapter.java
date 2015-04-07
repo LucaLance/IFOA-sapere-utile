@@ -14,9 +14,6 @@ import com.parse.ParseObject;
 import java.util.Date;
 import java.util.List;
 
-import gruppo3.ifoasapereutile.model.Corso;
-import gruppo3.ifoasapereutile.model.EdizioneCorso;
-
 /**
  * Created by Luca on 17/03/2015.
  */

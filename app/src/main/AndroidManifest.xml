@@ -2,8 +2,15 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="gruppo3.ifoasapereutile" >
 
+    <uses-sdk android:minSdkVersion="14" />
+
+    <uses-permission android:name="android.permission.READ_CALENDAR" />
+    <uses-permission android:name="android.permission.WRITE_CALENDAR" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
     <application
         android:name=".ParseApplication"
@@ -11,6 +18,11 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
+
+        <meta-data
+            android:name="com.google.android.maps.v2.API_KEY"
+            android:value="AIzaSyC4k8WMylaShebC0Jw5XJsZ-NzJRmJQ-x4" />
+
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name" >
@@ -43,6 +55,38 @@
         <activity
             android:name=".DettaglioCorsoActivity"
             android:label="@string/title_activity_dettaglio_corsi" >
+        </activity>
+        <activity
+            android:name=".StudentiActivity"
+            android:label="@string/title_activity_studenti" >
+        </activity>
+        <activity
+            android:name=".DettaglioStudenteActivity"
+            android:label="@string/title_activity_dettaglio_studente" >
+        </activity>
+        <activity
+            android:name=".ElencoModuliActivity"
+            android:label="@string/title_activity_elenco_moduli" >
+        </activity>
+        <activity
+            android:name=".DettaglioModuloActivity"
+            android:label="@string/title_activity_dettaglio_materia" >
+        </activity>
+        <activity
+            android:name=".CalendarioActivity"
+            android:label="@string/title_activity_clandario" >
+        </activity>
+        <activity
+            android:name=".ElencoCorsiActivity"
+            android:label="@string/title_activity_elenco_corsi" >
+        </activity>
+        <activity
+            android:name=".DettaglioElencoCorsoActivity"
+            android:label="@string/title_activity_dettaglio_elenco_corso" >
+        </activity>
+        <activity
+            android:name=".DettaglioSedeActivity"
+            android:label="@string/title_activity_dettaglio_sede" >
         </activity>
     </application>
 

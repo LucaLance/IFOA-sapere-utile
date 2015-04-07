@@ -1,0 +1,91 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context="gruppo3.ifoasapereutile.DettaglioModuloActivity">
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+
+    <TextView
+        android:textStyle="bold"
+        android:id="@+id/txtNomeModulo"
+        android:textColor="#000000"
+        android:textSize="30sp"
+        android:layout_centerHorizontal="true"
+        android:text="NomeModulo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <ProgressBar
+        android:visibility="gone"
+        android:layout_marginTop="30dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/txtNomeModulo"
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:layout_below="@+id/txtNomeModulo"
+        android:layout_marginTop="20dp"
+        android:id="@+id/txtTitleDocente"
+        android:textColor="#000000"
+        android:textSize="15sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:layout_below="@+id/txtTitleDocente"
+        android:id="@+id/txtDocente"
+        android:textColor="#000000"
+        android:textSize="20sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:layout_below="@+id/txtDocente"
+        android:layout_marginTop="20dp"
+        android:id="@+id/txtTitleOre"
+        android:textColor="#000000"
+        android:textSize="15sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:layout_below="@+id/txtTitleOre"
+        android:id="@+id/txtOre"
+        android:textColor="#000000"
+        android:textSize="20sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:layout_below="@+id/txtOre"
+        android:layout_marginTop="20dp"
+        android:id="@+id/txtTitleArgomenti"
+        android:textColor="#000000"
+        android:textSize="15sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:layout_below="@+id/txtTitleArgomenti"
+        android:id="@+id/txtArgomenti"
+        android:textColor="#000000"
+        android:textSize="20sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+        </RelativeLayout>
+
+    </ScrollView>
+
+</RelativeLayout>

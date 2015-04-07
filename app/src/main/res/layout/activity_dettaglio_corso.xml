@@ -25,15 +25,42 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
+    <TextView
+        android:textColor="#000000"
+        android:id="@+id/txtDataInizio"
+        android:layout_marginTop="10dp"
+        android:layout_below="@id/txtNomeCorso"
+        android:layout_alignParentLeft="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:textColor="#000000"
+        android:id="@+id/txtDataFine"
+        android:layout_marginTop="10dp"
+        android:layout_below="@id/txtNomeCorso"
+        android:layout_alignParentRight="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <Button
+        android:layout_below="@+id/txtDataInizio"
+        android:layout_marginTop="20dp"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/btnCalendario"
+        android:text="Calendario"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
     <RelativeLayout
         android:visibility="gone"
-    android:layout_below="@+id/progressBar"
+    android:layout_below="@+id/btnCalendario"
     android:id="@+id/layoutStudente"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <Button
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="20dp"
         android:layout_centerHorizontal="true"
         android:id="@+id/btnModuli"
         android:text="Moduli"
@@ -43,14 +70,13 @@
 </RelativeLayout>
 
     <RelativeLayout
-        android:visibility="visible"
-        android:layout_below="@+id/progressBar"
+        android:visibility="gone"
+        android:layout_below="@+id/btnCalendario"
         android:id="@+id/layoutDocente"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <ListView
-            android:layout_marginTop="30dp"
             android:id="@+id/listMaterie"
             android:layout_width="wrap_content"
             android:layout_height="200dp">

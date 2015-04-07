@@ -3,7 +3,7 @@
 
     <string name="app_name">IFOA sapere utile</string>
     <string name="home_section">Home</string>
-    <string name="chi_siamo_section">Chi Siamo</string>
+    <string name="contatti_section">Contatti</string>
     <string name="sedi_section">Le Sedi</string>
     <string name="profilo_section">il mio Profilo</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
@@ -16,5 +16,13 @@
     <string name="title_activity_refresh_navigation_drawer">RefreshNavigationDrawerActivity</string>
     <string name="title_activity_miei_corsi">MieiCorsiActivity</string>
     <string name="title_activity_dettaglio_corsi">DettaglioCorsiActivity</string>
+    <string name="title_activity_studenti">StudentiActivity</string>
+    <string name="title_activity_dettaglio_studente">DettaglioStudenteActivity</string>
+    <string name="title_activity_elenco_moduli">ElencoModuliActivity</string>
+    <string name="title_activity_dettaglio_materia">DettaglioMateriaActivity</string>
+    <string name="title_activity_clandario">ClandarioActivity</string>
+    <string name="title_activity_elenco_corsi">ElencoCorsiActivity</string>
+    <string name="title_activity_dettaglio_elenco_corso">DettaglioElencoCorsoActivity</string>
+    <string name="title_activity_dettaglio_sede">DettaglioSedeActivity</string>
 
 </resources>

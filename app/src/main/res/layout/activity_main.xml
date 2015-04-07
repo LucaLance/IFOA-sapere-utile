@@ -74,41 +74,76 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
-        </RelativeLayout>
-
-        <!-- Layout Sezione Chi Siamo -->
-        <RelativeLayout
-            android:visibility="gone"
-            android:id="@+id/contentChiSiamo"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <TextView
-                android:textColor="#000000"
-                android:textSize="50sp"
-                android:layout_centerVertical="true"
+            <Button
+                android:id="@+id/btnElencoCorsi"
                 android:layout_centerHorizontal="true"
-                android:text="Chi Siamo"
+                android:layout_below="@+id/btnInformatica"
+                android:textSize="20sp"
+                android:text="Corsi Post-Diploma"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
         </RelativeLayout>
 
+        <!-- Layout Sezione Contatti -->
+        <RelativeLayout
+            android:visibility="gone"
+            android:id="@+id/contentContatti"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ExpandableListView
+                android:id="@+id/expListContatti"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"></ExpandableListView>
+
+        </RelativeLayout>
+
         <!-- Layout Sezione Sedi -->
         <RelativeLayout
+            android:background="#FFFFFF"
             android:visibility="gone"
             android:id="@+id/contentSedi"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
             <TextView
+                android:layout_marginTop="20dp"
                 android:textColor="#000000"
-                android:textSize="50sp"
-                android:layout_centerVertical="true"
                 android:layout_centerHorizontal="true"
-                android:text="Le Sedi"
+                android:textSize="25sp"
+                android:id="@+id/txtSelSede"
+                android:text="Seleziona il nome della città"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
+            
+            <FrameLayout
+                android:id="@+id/frameSedi"
+                android:layout_below="@+id/txtSelSede"
+                android:layout_marginTop="25dp"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent">
+
+
+            
+            <ImageView
+                android:id="@+id/image"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:scaleType="fitXY"
+                android:src="@drawable/sedi_ifoa_2015"
+                />
+
+                <ImageView
+                    android:id="@+id/image_areas"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:scaleType="fitXY"
+                    android:visibility="invisible"
+                    android:src="@drawable/italia"
+                    />
+
+            </FrameLayout>
 
         </RelativeLayout>
 

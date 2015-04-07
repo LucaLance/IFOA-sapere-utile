@@ -19,14 +19,8 @@ import com.parse.ParseUser;
 
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
-
-import gruppo3.ifoasapereutile.model.Corso;
-import gruppo3.ifoasapereutile.model.Docente;
-import gruppo3.ifoasapereutile.model.EdizioneCorso;
-import gruppo3.ifoasapereutile.model.Insegna;
-import gruppo3.ifoasapereutile.model.Partecipa;
-import gruppo3.ifoasapereutile.model.Studente;
 
 
 public class MieiCorsiActivity extends ActionBarActivity {
@@ -79,6 +73,7 @@ public class MieiCorsiActivity extends ActionBarActivity {
                 i.putExtra("nomeCorso", nomeCorso);
                 if (userStudente!=null){
                     i.putExtra("tipoUtente", userStudente.getClassName());
+                    i.putExtra("idEdizioneCorso", edizioneCorsoSelected.getObjectId());
                 }else{
                     i.putExtra("tipoUtente", userDocente.getClassName());
                     i.putExtra("idEdizioneCorso", edizioneCorsoSelected.getObjectId());
@@ -162,20 +157,76 @@ public class MieiCorsiActivity extends ActionBarActivity {
             }
 
             if (edizioneCorso != null){
-                for(int i = 0; i<edizioneCorso.size()-1; i++){
-                    for (int j = i+1; j<edizioneCorso.size(); j++){
-                        ParseObject scambio;
-                        try {
-                            if (!edizioneCorso.get(i).fetchIfNeeded().getDate("dataFine").after(edizioneCorso.get(j).fetchIfNeeded().getDate("dataFine"))){
-                                scambio = edizioneCorso.get(i);
-                                edizioneCorso.set(i, edizioneCorso.get(j));
-                                edizioneCorso.set(j, scambio);
+                List<ParseObject> edizioneCorsoInCorso = new ArrayList<>();
+                List<ParseObject> edizioneCorsoFiniti = new ArrayList<>();
+                List<ParseObject> edizioneCorsoInPartenza = new ArrayList<>();
+                for (int i = 0; i<edizioneCorso.size(); i++){
+                    try {
+                        if (edizioneCorso.get(i).fetchIfNeeded().getDate("dataFine").before(new Date())){
+                            edizioneCorsoFiniti.add(edizioneCorso.get(i));
+                        }
+                        if (edizioneCorso.get(i).fetchIfNeeded().getDate("dataInizio").after(new Date())){
+                            edizioneCorsoInPartenza.add(edizioneCorso.get(i));
+                        }
+                        if (edizioneCorso.get(i).fetchIfNeeded().getDate("dataInizio").before(new Date()) && edizioneCorso.get(i).fetchIfNeeded().getDate("dataFine").after(new Date())){
+                            edizioneCorsoInCorso.add(edizioneCorso.get(i));
+                        }
+                    } catch (com.parse.ParseException e) {
+                        e.printStackTrace();
+                    }
+                }
+                edizioneCorso = new ArrayList<>();
+                if (edizioneCorsoInCorso.size()>0 && edizioneCorsoInCorso!=null) {
+                    for (int i = 0; i < edizioneCorsoInCorso.size() - 1; i++) {
+                        for (int j = i + 1; j < edizioneCorsoInCorso.size(); j++) {
+                            ParseObject scambio;
+                            try {
+                                if (edizioneCorsoInCorso.get(i).fetchIfNeeded().getDate("dataFine").after(edizioneCorsoInCorso.get(j).fetchIfNeeded().getDate("dataFine"))) {
+                                    scambio = edizioneCorsoInCorso.get(i);
+                                    edizioneCorsoInCorso.set(i, edizioneCorsoInCorso.get(j));
+                                    edizioneCorsoInCorso.set(j, scambio);
+                                }
+                            } catch (com.parse.ParseException e) {
+                                e.printStackTrace();
                             }
-                        } catch (com.parse.ParseException e) {
-                            e.printStackTrace();
                         }
                     }
                 }
+                edizioneCorso.addAll(edizioneCorsoInCorso);
+                if (edizioneCorsoInPartenza.size()>0 && edizioneCorsoInPartenza!=null) {
+                    for (int i = 0; i < edizioneCorsoInPartenza.size() - 1; i++) {
+                        for (int j = i + 1; j < edizioneCorsoInPartenza.size(); j++) {
+                            ParseObject scambio;
+                            try {
+                                if (edizioneCorsoInPartenza.get(i).fetchIfNeeded().getDate("dataInizio").after(edizioneCorsoInPartenza.get(j).fetchIfNeeded().getDate("dataInizio"))) {
+                                    scambio = edizioneCorsoInPartenza.get(i);
+                                    edizioneCorsoInPartenza.set(i, edizioneCorsoInPartenza.get(j));
+                                    edizioneCorsoInPartenza.set(j, scambio);
+                                }
+                            } catch (com.parse.ParseException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+                }
+                edizioneCorso.addAll(edizioneCorsoInPartenza);
+                if (edizioneCorsoFiniti.size()>0 && edizioneCorsoFiniti!=null) {
+                    for (int i = 0; i < edizioneCorsoFiniti.size() - 1; i++) {
+                        for (int j = i + 1; j < edizioneCorsoFiniti.size(); j++) {
+                            ParseObject scambio;
+                            try {
+                                if (edizioneCorsoFiniti.get(i).fetchIfNeeded().getDate("dataFine").before(edizioneCorsoFiniti.get(j).fetchIfNeeded().getDate("dataFine"))) {
+                                    scambio = edizioneCorsoFiniti.get(i);
+                                    edizioneCorsoFiniti.set(i, edizioneCorsoFiniti.get(j));
+                                    edizioneCorsoFiniti.set(j, scambio);
+                                }
+                            } catch (com.parse.ParseException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+                }
+                edizioneCorso.addAll(edizioneCorsoFiniti);
             }
 
         if (edizioneCorso!=null){
@@ -196,7 +247,7 @@ public class MieiCorsiActivity extends ActionBarActivity {
         @Override
         protected void onPostExecute(Void aVoid) {
             progressBar.setVisibility(View.GONE);
-            if (edizioneCorso.size()==0){
+            if (edizioneCorso.size()==0) {
                 txtNoCorsi.setVisibility(View.VISIBLE);
             }
             listViewCorsi.setAdapter(myAdapter);

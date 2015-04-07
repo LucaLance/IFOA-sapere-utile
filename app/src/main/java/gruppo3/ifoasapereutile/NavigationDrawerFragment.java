@@ -136,7 +136,7 @@ public class NavigationDrawerFragment extends Fragment {
 
         String[] elenco = new String[] {
                 getString(R.string.home_section),
-                getString(R.string.chi_siamo_section),
+                getString(R.string.contatti_section),
                 getString(R.string.sedi_section),
         };
 
@@ -164,11 +164,11 @@ public class NavigationDrawerFragment extends Fragment {
                             header.setBackgroundColor(Color.parseColor("#cccccc"));
                             if (activity.getClass() == MainActivity.class) {
                                 RelativeLayout contentHome = (RelativeLayout) getActivity().findViewById(R.id.contentHome);
-                                RelativeLayout contentChiSiamo = (RelativeLayout) getActivity().findViewById(R.id.contentChiSiamo);
+                                RelativeLayout contentContatti = (RelativeLayout) getActivity().findViewById(R.id.contentContatti);
                                 RelativeLayout contentSedi = (RelativeLayout) getActivity().findViewById(R.id.contentSedi);
                                 RelativeLayout contentProfilo = (RelativeLayout) getActivity().findViewById(R.id.contentProfilo);
                                 contentHome.setVisibility(View.GONE);
-                                contentChiSiamo.setVisibility(View.GONE);
+                                contentContatti.setVisibility(View.GONE);
                                 contentSedi.setVisibility(View.GONE);
                                 contentProfilo.setVisibility(View.VISIBLE);
                                 mDrawerLayout.closeDrawer(mFragmentContainerView);

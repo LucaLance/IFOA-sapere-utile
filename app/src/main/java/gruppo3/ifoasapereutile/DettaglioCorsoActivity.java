@@ -2,6 +2,7 @@ package gruppo3.ifoasapereutile;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -9,6 +10,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
@@ -18,11 +20,9 @@ import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
-
-import gruppo3.ifoasapereutile.model.EdizioneCorso;
-import gruppo3.ifoasapereutile.model.Insegna;
 
 
 public class DettaglioCorsoActivity extends ActionBarActivity {
@@ -37,7 +37,9 @@ public class DettaglioCorsoActivity extends ActionBarActivity {
 
     ProgressBar progressBar;
     TextView txtNomeCorso;
+    TextView txtDataInizio, txtDataFine;
     ListView listViewMaterie;
+    Button btnElencoStudenti, btnModuli, btnCalendario;
 
     MateriaAdapter myAdapterMateria;
 
@@ -55,6 +57,11 @@ public class DettaglioCorsoActivity extends ActionBarActivity {
         txtNomeCorso = (TextView) findViewById(R.id.txtNomeCorso);
         listViewMaterie = (ListView) findViewById(R.id.listMaterie);
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
+        txtDataInizio = (TextView) findViewById(R.id.txtDataInizio);
+        txtDataFine = (TextView) findViewById(R.id.txtDataFine);
+        btnElencoStudenti = (Button) findViewById(R.id.btnElencoStudenti);
+        btnModuli = (Button) findViewById(R.id.btnModuli);
+        btnCalendario = (Button) findViewById(R.id.btnCalendario);
 
         layoutDocente = (RelativeLayout) findViewById(R.id.layoutDocente);
         layoutStudente = (RelativeLayout) findViewById(R.id.layoutStudente);
@@ -68,6 +75,36 @@ public class DettaglioCorsoActivity extends ActionBarActivity {
         DettaglioCorsoTask task = new DettaglioCorsoTask();
         task.execute();
 
+        btnElencoStudenti.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(DettaglioCorsoActivity.this, StudentiActivity.class);
+                i.putExtra("idEdizioneCorso", edizioneCorso.getObjectId());
+                startActivity(i);
+            }
+        });
+
+        btnModuli.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(DettaglioCorsoActivity.this, ElencoModuliActivity.class);
+                i.putExtra("idEdizioneCorso", edizioneCorso.getObjectId());
+                startActivity(i);
+            }
+        });
+
+        btnCalendario.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(DettaglioCorsoActivity.this, CalendarioActivity.class);
+                if (userDocente != null){
+                    i.putExtra("Docente", user.getString("firstName") + " " + user.getString("lastName"));
+                }
+                i.putExtra("Calendario", edizioneCorso.getString("calendario"));
+                startActivity(i);
+            }
+        });
+
     }
 
     private class DettaglioCorsoTask extends AsyncTask<Void, Void, Void> {
@@ -75,6 +112,8 @@ public class DettaglioCorsoActivity extends ActionBarActivity {
         @Override
         protected void onPreExecute() {
             progressBar.setVisibility(View.VISIBLE);
+
+            btnCalendario.setVisibility(View.GONE);
         }
 
         @Override
@@ -118,6 +157,29 @@ public class DettaglioCorsoActivity extends ActionBarActivity {
 
                 myAdapterMateria = new MateriaAdapter(DettaglioCorsoActivity.this, R.layout.row_materia, docenteInsegna);
 
+            }else{
+                ParseQuery<ParseObject> queryStudente = ParseQuery.getQuery("Studente");
+                queryStudente.whereEqualTo("fkIdUser", user);
+                try {
+                    List<ParseObject> studenteList = queryStudente.find();
+                    if (studenteList.size() > 0 && studenteList != null) {
+                        userStudente = studenteList.get(0);
+                    }
+                } catch (com.parse.ParseException e) {
+                    e.printStackTrace();
+                }
+
+                ParseQuery<ParseObject> queryEdizioneCorso = ParseQuery.getQuery("EdizioneCorso");
+                queryEdizioneCorso.whereEqualTo("objectId", idEdizioneCorso);
+                try {
+                    List<ParseObject> edizioneCorsoList = queryEdizioneCorso.find();
+                    if (edizioneCorsoList.size() > 0 && edizioneCorsoList != null) {
+                        edizioneCorso = edizioneCorsoList.get(0);
+                    }
+                } catch (com.parse.ParseException e) {
+                    e.printStackTrace();
+                }
+
             }
 
             return null;
@@ -126,6 +188,9 @@ public class DettaglioCorsoActivity extends ActionBarActivity {
         @Override
         protected void onPostExecute(Void aVoid) {
             progressBar.setVisibility(View.GONE);
+            btnCalendario.setVisibility(View.VISIBLE);
+            txtDataInizio.setText("Data Inizio: " + new SimpleDateFormat("dd/MM/yyyy").format(edizioneCorso.getDate("dataInizio")));
+            txtDataFine.setText("Data Fine: " + new SimpleDateFormat("dd/MM/yyyy").format(edizioneCorso.getDate("dataFine")));
             if (intent.getStringExtra("tipoUtente").equals("Studente")){
                 layoutStudente.setVisibility(View.VISIBLE);
                 layoutDocente.setVisibility(View.GONE);
